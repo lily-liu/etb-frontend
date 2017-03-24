@@ -15,6 +15,9 @@ export class AppComponent {
 
   markers: Marker[];
 
+  newlabel: string;
+  newdesc: string;
+
   // initial center position for the map
   lat: number = 51.673858;
   long: number = 7.815982;
@@ -95,7 +98,7 @@ export class AppComponent {
   }
 
   public mapClicked($event: any) {
-    this.mark = new Marker($event.coords.lat, $event.coords.lng)
+    this.mark = new Marker($event.coords.lat, $event.coords.lng);
     console.log(this.mark)
   }
 
