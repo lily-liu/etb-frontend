@@ -1,6 +1,7 @@
 import {GoogleMapsAPIWrapper} from 'angular2-google-maps/core/services/google-maps-api-wrapper';
-import {Directive, Input} from '@angular/core';
+import { Directive,  Input} from '@angular/core';
 declare var google: any;
+
 
 
 @Directive({
@@ -11,16 +12,14 @@ export class DirectionsMapDirective {
   @Input() destination;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
-  constructor(private gmapsApi: GoogleMapsAPIWrapper) {
-  }
-
-  ngOnChanges() {
+  constructor (private gmapsApi: GoogleMapsAPIWrapper) {}
+  ngOnChanges(){
     this.gmapsApi.getNativeMap().then(map => {
-      if (!this.origin || !this.destination) {
+      if(!this.origin || !this.destination){
         this.directionsDisplay.setDirections({routes: []});
         return;
       }
-      if (!this.origin.lat || !this.origin.long || !this.destination.lat || !this.destination.long) {
+      if(!this.origin.lng || !this.origin.lat || !this.destination.lng || !this.destination.lat ){
         this.directionsDisplay.setDirections({routes: []});
         return;
       }
@@ -29,12 +28,12 @@ export class DirectionsMapDirective {
       this.directionsDisplay.setMap(map);
       this.directionsDisplay.setDirections({routes: []});
       directionsService.route({
-        origin: {lat: this.origin.lat, lng: this.origin.long},
-        destination: {lat: this.destination.lat, lng: this.destination.long},
+        origin: {lat: this.origin.lat, lng: this.origin.lng},
+        destination: {lat: this.destination.lat, lng: this.destination.lng},
         waypoints: [],
         optimizeWaypoints: true,
         travelMode: 'DRIVING'
-      }, function (response, status) {
+      }, function(response, status) {
         if (status === 'OK') {
           me.directionsDisplay.setDirections(response);
         } else {

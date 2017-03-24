@@ -3,13 +3,13 @@ export class Marker {
   title : string;
   description : string;
   lat : number;
-  long : number;
+  lng : number;
 
-  constructor(lat:number, long: number) {
+  constructor(lat:number, lng: number) {
     this.id = 0;
     this.title = '';
     this.description = '';
     this.lat = lat;
-    this.long = long;
+    this.lng = lng;
   }
 }

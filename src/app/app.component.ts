@@ -21,7 +21,7 @@ export class AppComponent {
 
   // initial center position for the map
   lat: number = 51.673858;
-  long: number = 7.815982;
+  lng: number = 7.815982;
 
   mark: Marker;
 

@@ -10,7 +10,7 @@
 <div class="col-md-12 col-sm-12 margin-top-20">
   <sebm-google-map
     [latitude]="lat"
-    [longitude]="long"
+    [longitude]="lng"
     [zoom]="zoom"
     [streetViewControl]="false"
     (mapClick)="staticModal.show(); mapClicked($event)">
@@ -18,7 +18,7 @@
     <sebm-google-map-marker
       *ngFor="let m of markers; let i = index;"
       [latitude]="m.lat"
-      [longitude]="m.long"
+      [longitude]="m.lng"
       [label]="m.id.toString()"
       (markerClick)="clickedMarker()">
       <sebm-google-map-info-window>
