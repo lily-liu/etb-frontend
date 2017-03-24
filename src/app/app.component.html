@@ -1,3 +1,66 @@
-<h1>
-  {{title}}
-</h1>
+<div class="col-md-12 col-sm-12">
+  <h1>ETB Test</h1>
+  <div class="well margin-top-10" *ngIf="startPoint">Start From: {{startPoint.title}}</div>
+  <div class="well" *ngIf="endPoint">To Destination: {{endPoint.title}}</div>
+  <button type="button" class="btn btn-danger" (click)="removeRoute();">
+    Remove Route
+  </button>
+</div>
+
+<div class="col-md-12 col-sm-12 margin-top-20">
+  <sebm-google-map
+    [latitude]="lat"
+    [longitude]="long"
+    [zoom]="zoom"
+    [streetViewControl]="false"
+    (mapClick)="staticModal.show(); mapClicked($event)">
+
+    <sebm-google-map-marker
+      *ngFor="let m of markers; let i = index;"
+      [latitude]="m.lat"
+      [longitude]="m.long"
+      [label]="m.id.toString()"
+      (markerClick)="clickedMarker()">
+      <sebm-google-map-info-window>
+        <h4 *ngIf="m.id">{{m.title}}<br>{{m.description}}<br></h4>
+        <button *ngIf=!startPoint&&!endPoint href="javascript:" (click)="addAsStart(m);" class="btn btn-primary">Add as
+          start
+        </button>
+        <button *ngIf=startPoint&&!endPoint href="javascript:" (click)="addAsEnd(m);" class="btn btn-primary">Add as
+          end
+        </button>
+        <button *ngIf="m.id" href="javascript:;" (click)="deleteMarker(m.id)" class="btn btn-danger">Delete Marker
+        </button>
+      </sebm-google-map-info-window>
+
+    </sebm-google-map-marker>
+
+    <sebm-google-map-directions *ngIf="!routeDisable" [startPoint]="startPoint"
+                                [endPoint]="endPoint"></sebm-google-map-directions>
+
+  </sebm-google-map>
+</div>
+
+
+<div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Marker</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input [(ngModel)]="newlabel" class="form-control margin-top-10" placeholder="Label">
+        <input [(ngModel)]="newdesc" class="form-control margin-top-10" placeholder="Description">
+      </div>
+      <div class="model-footer">
+        <button [disabled]="!newlabel||!newdesc" type="button" class="btn btn-primary pull-right"
+                (click)="addMarker(newlabel,newdesc);staticModal.hide();newlabel='';newdesc=''">Add Marker
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
