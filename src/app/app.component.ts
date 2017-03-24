@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {Marker} from '../model/Marker'
-import {MarkerService} from '../services/MarkerService'
+import {Marker} from '../model/Marker';
+import {MarkerService} from '../services/MarkerService';
+import { DirectionsMapDirective } from '../directives/directions-map.directive';
 
 @Component({
   selector: 'app-root',
@@ -27,8 +28,8 @@ export class AppComponent {
   routeDisable: boolean = true;
 
   init: boolean = true;
-  startPoint = null;
-  endPoint = null;
+  origin = null;
+  destination = null;
 
   constructor(private markerService: MarkerService) {
     markerService.getMarkers()
@@ -41,19 +42,19 @@ export class AppComponent {
   }
 
   public clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${this.startPoint} ${this.endPoint}`)
+    console.log(`clicked the marker: ${this.origin} ${this.destination}`)
   }
 
   public addAsStart(start: Marker) {
-    this.startPoint = start;
-    console.log(this.startPoint);
+    this.origin = start;
+    console.log(this.origin);
     this.getMarkers()
   }
 
   public addAsEnd(end: Marker) {
-    this.endPoint = end;
+    this.destination = end;
     this.routeDisable = false;
-    console.log(this.endPoint);
+    console.log(this.destination);
     this.getMarkers()
   }
 
@@ -66,14 +67,14 @@ export class AppComponent {
 
   public calculateRoute() {
     this.routeDisable = false;
-    console.log(`get route for: ${this.startPoint} ${this.endPoint}`)
+    console.log(`get route for: ${this.origin} ${this.destination}`)
   }
 
   public removeRoute() {
-    this.endPoint = null;
-    this.startPoint = null;
+    this.destination = null;
+    this.origin = null;
     this.getMarkers();
-    console.log(`route removed: ${this.startPoint} ${this.endPoint}`)
+    console.log(`route removed: ${this.origin} ${this.destination}`)
   }
 
   public addMarker(title: string, description: string) {

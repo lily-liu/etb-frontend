@@ -1,7 +1,7 @@
 <div class="col-md-12 col-sm-12">
   <h1>ETB Test</h1>
-  <div class="well margin-top-10" *ngIf="startPoint">Start From: {{startPoint.title}}</div>
-  <div class="well" *ngIf="endPoint">To Destination: {{endPoint.title}}</div>
+  <div class="well margin-top-10" *ngIf="origin">Start From: {{origin.title}}</div>
+  <div class="well" *ngIf="destination">To Destination: {{destination.title}}</div>
   <button type="button" class="btn btn-danger" (click)="removeRoute();">
     Remove Route
   </button>
@@ -23,20 +23,20 @@
       (markerClick)="clickedMarker()">
       <sebm-google-map-info-window>
         <h4 *ngIf="m.id">{{m.title}}<br>{{m.description}}<br></h4>
-        <button *ngIf=!startPoint&&!endPoint href="javascript:" (click)="addAsStart(m);" class="btn btn-primary">Add as
+        <button *ngIf=!origin&&!destination href="javascript:" (click)="addAsStart(m);" class="btn btn-primary">Add as
           start
         </button>
-        <button *ngIf=startPoint&&!endPoint href="javascript:" (click)="addAsEnd(m);" class="btn btn-primary">Add as
+        <button *ngIf=origin&&!destination href="javascript:" (click)="addAsEnd(m);" class="btn btn-primary">Add as
           end
         </button>
-        <button *ngIf="m.id" href="javascript:;" (click)="deleteMarker(m.id)" class="btn btn-danger">Delete Marker
+        <button *ngIf="m.id" href="javascript:" (click)="deleteMarker(m.id)" class="btn btn-danger">Delete Marker
         </button>
       </sebm-google-map-info-window>
 
     </sebm-google-map-marker>
 
-    <sebm-google-map-directions *ngIf="!routeDisable" [startPoint]="startPoint"
-                                [endPoint]="endPoint"></sebm-google-map-directions>
+    <sebm-google-map-directions *ngIf="!routeDisable" [origin]="origin"
+                                [destination]="destination"></sebm-google-map-directions>
 
   </sebm-google-map>
 </div>

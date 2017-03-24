@@ -7,8 +7,8 @@ declare var google: any;
   selector: 'sebm-google-map-directions'
 })
 export class DirectionsMapDirective {
-  @Input() startPoint;
-  @Input() endPoint;
+  @Input() origin;
+  @Input() destination;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
   constructor(private gmapsApi: GoogleMapsAPIWrapper) {
@@ -16,12 +16,11 @@ export class DirectionsMapDirective {
 
   ngOnChanges() {
     this.gmapsApi.getNativeMap().then(map => {
-      if (!this.startPoint || !this.endPoint) {
+      if (!this.origin || !this.destination) {
         this.directionsDisplay.setDirections({routes: []});
-        console.log('map empty')
         return;
       }
-      if (!this.startPoint.lat || !this.startPoint.long || !this.endPoint.lat || !this.endPoint.long) {
+      if (!this.origin.lat || !this.origin.long || !this.destination.lat || !this.destination.long) {
         this.directionsDisplay.setDirections({routes: []});
         return;
       }
@@ -30,8 +29,8 @@ export class DirectionsMapDirective {
       this.directionsDisplay.setMap(map);
       this.directionsDisplay.setDirections({routes: []});
       directionsService.route({
-        origin: {lat: this.startPoint.lat, lng: this.startPoint.long},
-        destination: {lat: this.endPoint.lat, lng: this.endPoint.long},
+        origin: {lat: this.origin.lat, lng: this.origin.long},
+        destination: {lat: this.destination.lat, lng: this.destination.long},
         waypoints: [],
         optimizeWaypoints: true,
         travelMode: 'DRIVING'
