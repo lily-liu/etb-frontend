@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 export class MarkerService {
   constructor(private http: Http) { }
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://wiseliu-etb-test-backend.herokuapp.com/';
 
 
   getMarkers() {
